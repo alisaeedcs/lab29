@@ -33,25 +33,28 @@ int main() {
         //cout << "Invalid external file!" << endl;
                 //return 0;
   //  } if file does not open print error and exit
+
+  //here we will read the file that will contain 3 floors with some data of cars that are already parked and all the parking spaces /capacity
 	
-	//instead for wireframe just make a dumy one
+	//instead for wireframe just make a dumy one of the first floor
 	int floor = 1;
 	array<list<string>, 3> floorOne;
 	floorOne[0].push_back("A1"); //place car is parked in
 	floorOne[1].push_back(to_string(60*7 + 1)); // car arrived at 7:01 am
 	floorOne[2].push_back("A2"); //these parking spaces are available
-	floorOne[2].push_back("A3"); 
-	floorOne[2].push_back("A4"); 
+	floorOne[2].push_back("A3"); //other space
+	floorOne[2].push_back("A4"); //other space
 
 	garage[floor] = floorOne; // populate the map
 
-	// close the file
+	// ideally we would close the file after reading in from the file
 	//fin.close();
 
 	//begin time based simulation for valet updates
-	simulate(garage, 3);
+	simulate(garage, 3); // 3 trials so 30 minutes passing from 7 am
+	//will use the simulate function definition to operate
 
-	return 0;
+	return 0; //end of main function
 
 };
 
@@ -65,30 +68,31 @@ void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 	int start_time = 60 * 7; //get the starting time in minutes  ( 7 am)
 
 	//starts at 7 am
+	//start the amount of intervals
 	for (int i = 0; i < trials; i++) {
-		int current_time = start_time + ((i + 1) * 10);
-		cout << (i + 1)  * 10 << " Minutes In: \n";
+		int current_time = start_time + ((i + 1) * 10); // current time from 7 am so the firt one would be 10 + start_time
+		cout << (i + 1)  * 10 << " Minutes In: \n"; //output the amount of time we are in
 
 		int carArrivals = rand() % 2; //number of arrivals supposed to be 10 but for now we do 1 for dummy test
 		int carRetrievals = rand() % 2; //^ same for this it supposed to be 5 for dummy we do 1
 
 		//handle car retrievals
 		for (int k = 0; k < carRetrievals; k++) {
-			for (auto &floor: garage) {
-				if (!floor.second[0].empty()) {
+			for (auto &floor: garage) { //for each floor in teh garage
+				if (!floor.second[0].empty()) { //if the parked cars list is not empty on that floor
 					//would do random but for now do the first car
-					string parking_id = floor.second[0].front();
-					floor.second[0].pop_front();
-					int car_time = stoi(floor.second[1].front()) - start_time;
-					int hours = car_time / 60;
-					int minutes = car_time % 60;
+					string parking_id = floor.second[0].front(); //set the car we retrieve to the first car in tat list to string
+					floor.second[0].pop_front(); //get rid of it from that list
+					int car_time = stoi(floor.second[1].front()) - start_time; // get the int time of how long its been in minutes
+					int hours = car_time / 60; //get num of hours theyve been parked
+					int minutes = car_time % 60; //get num of minutes theyve been parked
 					floor.second[1].pop_front(); //time at same index of the car parking id
-					floor.second[2].push_back(parking_id);
-					cout << "Car retrieved from space " << parking_id << " on Floor: " << floor.first << ". Car was parked for " << hours << " hours and " << minutes << " minutes.\n";
-					break;
+					floor.second[2].push_back(parking_id); //put that space id in available now last 
+					cout << "Car retrieved from space " << parking_id << " on Floor: " << floor.first << ". Car was parked for " << hours << " hours and " << minutes << " minutes.\n"; //output in nice ofrmatting
+					break; //exit this loop since weve received that first car 
 				}
 				else {
-					cout << "No cars parked" << endl;
+					cout << "No cars parked" << endl; 
 					//check other floors if this is true
 				}
 				//will add ability to check for others
@@ -97,36 +101,44 @@ void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 
 		//handle car arrivals
 		for (int j = 0; j < carArrivals; j++) {
-			bool car_parked = false;
+			bool car_parked = false; //bool for car parked
 
 			//try parking on each floor starting with the first floor
 			for (auto &floor: garage) {
-				//check if space on the floor
+				//check if there is available space on the floor
 				if (!floor.second[2].empty()) {
+					//if there is
+					//set the parking space we wil take to the first one on the list of the available
 					string parking_id = floor.second[2].front();
+					//get rid of the id from being the available list
 					floor.second[2].pop_front();
+					//add our parking id to the ones that cars are parked at
 					floor.second[0].push_back(parking_id);
+					//put the current time in the list
 					floor.second[1].push_back(to_string(current_time)); //time in minutes since like 12 am or whateber so 7 am plus the time it got added
-					//will add other conditions if this is full later
-					car_parked = true;
+					//will add other conditions if this is full later (if i have to)
+					car_parked = true; // make it so that the car is parked
 					cout << "Car parked in space " << parking_id << " on Floor: " << floor.first << endl; 
 					break;
 				}
 				//will add other levels here to check
 			}
 			if (!car_parked) {
+				//if it was not set to true and there was no space at all the car will wait
 				cout << "No space for car, it is waiting outside";
 				//code to add it to a queue where when space empties it will be added
 			}
 		}
-		output(garage);
+		output(garage); //output once more
 	}
 }
 
+//output the map of the garage definition
 void output(map<int, array<list<string>, 3>>& garage) {
-	for (const auto &floor: garage) {
-		cout << "Floor " << floor.first << endl;
-		cout << "\tNumber of Cars Parked " << floor.second[0].size() << endl;
-		cout << "\tNumber of Available Spaces " << floor.second[2].size() << endl;
+	//method i chose to output
+	for (const auto &floor: garage) { //for each floor
+		cout << "Floor " << floor.first << endl; //first output the floor number
+		cout << "\tNumber of Cars Parked " << floor.second[0].size() << endl; //then output the numbers of cars parked on that floor
+		cout << "\tNumber of Available Spaces " << floor.second[2].size() << endl; //then the available remaining spaces on that floor
 	}
 }
