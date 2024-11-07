@@ -38,8 +38,10 @@ int main() {
 	int floor = 1;
 	array<list<string>, 3> floorOne;
 	floorOne[0].push_back("A1"); //place car is parked in
-	floorOne[1].push_back("1.00"); // at 8 am, sims start at 7 am if it was at like 8:30 we would do 1.30
-	floorOne[2].push_back("A2, A3, A4"); //these parking spaces are available
+	floorOne[1].push_back(to_string(60*7 + 1)); // car arrived at 7:01 am
+	floorOne[2].push_back("A2"); //these parking spaces are available
+	floorOne[2].push_back("A3"); 
+	floorOne[2].push_back("A4"); 
 
 	garage[floor] = floorOne; // populate the map
 
@@ -47,6 +49,9 @@ int main() {
 	//fin.close();
 
 	//begin time based simulation for valet updates
+	simulate(garage, 3);
+
+	return 0;
 
 };
 
@@ -79,9 +84,14 @@ void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 					int minutes = car_time % 60;
 					floor.second[1].pop_front(); //time at same index of the car parking id
 					floor.second[2].push_back(parking_id);
-					cout << "Car retrieved from space " << parking_id << " on Floor: " << floor.first << ". Car was parked for " << hours << " hours and " << minutes << "minutes.\n";
+					cout << "Car retrieved from space " << parking_id << " on Floor: " << floor.first << ". Car was parked for " << hours << " hours and " << minutes << " minutes.\n";
 					break;
 				}
+				else {
+					cout << "No cars parked" << endl;
+					//check other floors if this is true
+				}
+				//will add ability to check for others
 			}
 		}
 
@@ -105,10 +115,11 @@ void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 				//will add other levels here to check
 			}
 			if (!car_parked) {
-				cout << "No space for car, it is waiting outsde";
+				cout << "No space for car, it is waiting outside";
 				//code to add it to a queue where when space empties it will be added
 			}
-		}		
+		}
+		output(garage);
 	}
 }
 
@@ -117,4 +128,5 @@ void output(map<int, array<list<string>, 3>>& garage) {
 		cout << "Floor " << floor.first << endl;
 		cout << "\tNumber of Cars Parked " << floor.second[0].size() << endl;
 		cout << "\tNumber of Available Spaces " << floor.second[2].size() << endl;
+	}
 }
