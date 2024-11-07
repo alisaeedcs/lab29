@@ -57,6 +57,8 @@ void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 	cout << "Initial state of parking garage:\n";
 	output(garage);
 
+	int start_time = 60 * 7; //get the starting time in minutes  ( 7 am)
+
 	//starts at 7 am
 	for (int i = 0; i < trials; i++) {
 		cout << (i + 1)  * 10 << " Minutes In: \n";
@@ -64,12 +66,29 @@ void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 		int carArrivals = rand() % 2; //number of arrivals supposed to be 10 but for now we do 1 for dummy test
 		int carRetrievals = rand() % 2; //^ same for this it supposed to be 5 for dummy we do 1
 
+		//handle car retrievals
+		for (int k = 0; k < carRetrievals; k++) {
+			for (auto &floor: garage) {
+				if (!floor.second[0].empty()) {
+					//would do random but for now do the first car
+					string parking_id = floor.second[0].front();
+					floor.second[0].pop_front();
+					string car_time = ...;
+					floor.second[1].pop_front(); //time at same index of the car parking id
+					floor.second[2].push_back(parking_id);
+					cout << "Car retrieved from space " << parking_id << " on Floor: " << floor.first << ". Car was parked for " << 
+					break;
+				}
+			}
+		}
+
 		//handle car arrivals
 		for (int j = 0; j < carArrivals; j++) {
 			bool car_parked = false;
 
 			//try parking on each floor starting with the first floor
 			for (auto &floor: garage) {
+				//check if space on the floor
 				if (!floor.second[2].empty()) {
 					string parking_id = floor.second[2].front();
 					floor.second[2].pop_front();
@@ -78,6 +97,7 @@ void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 					//will add other conditions if this is full later
 					car_parked = true;
 					cout << "Car parked in space " << parking_id << " on Floor: " << floor.first << endl; 
+					break;
 				}
 				//will add other levels here to check
 			}
