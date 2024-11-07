@@ -1,3 +1,6 @@
+// comsc-210 | ali saeed \ lab 29
+//ide used: vs code
+//think that i implemented the wireframe and the pseudocode well without going to into it while still giving a demo
 //include necessary headers for file handling, dat structures, etc.
 #include <iostream>
 #include <map>
@@ -79,6 +82,11 @@ void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 		//handle car retrievals
 		for (int k = 0; k < carRetrievals; k++) {
 			for (auto &floor: garage) { //for each floor in teh garage
+				//for sum clarity
+				//floor.second[0] contains the occupied spaces
+				//floor.second[1] contains the arrival times
+				//floor.second[2] contains the available spaces
+
 				if (!floor.second[0].empty()) { //if the parked cars list is not empty on that floor
 					//would do random but for now do the first car
 					string parking_id = floor.second[0].front(); //set the car we retrieve to the first car in tat list to string
