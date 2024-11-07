@@ -61,6 +61,7 @@ void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 
 	//starts at 7 am
 	for (int i = 0; i < trials; i++) {
+		int current_time = start_time + ((i + 1) * 10);
 		cout << (i + 1)  * 10 << " Minutes In: \n";
 
 		int carArrivals = rand() % 2; //number of arrivals supposed to be 10 but for now we do 1 for dummy test
@@ -73,10 +74,12 @@ void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 					//would do random but for now do the first car
 					string parking_id = floor.second[0].front();
 					floor.second[0].pop_front();
-					string car_time = ...;
+					int car_time = stoi(floor.second[1].front()) - start_time;
+					int hours = car_time / 60;
+					int minutes = car_time % 60;
 					floor.second[1].pop_front(); //time at same index of the car parking id
 					floor.second[2].push_back(parking_id);
-					cout << "Car retrieved from space " << parking_id << " on Floor: " << floor.first << ". Car was parked for " << 
+					cout << "Car retrieved from space " << parking_id << " on Floor: " << floor.first << ". Car was parked for " << hours << " hours and " << minutes << "minutes.\n";
 					break;
 				}
 			}
@@ -93,7 +96,7 @@ void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 					string parking_id = floor.second[2].front();
 					floor.second[2].pop_front();
 					floor.second[0].push_back(parking_id);
-					floor.second[1].push_back("7:" + to_string(((i + 1) * 10))); //will fix the time going like over 7:50 dummy for now 
+					floor.second[1].push_back(to_string(current_time)); //time in minutes since like 12 am or whateber so 7 am plus the time it got added
 					//will add other conditions if this is full later
 					car_parked = true;
 					cout << "Car parked in space " << parking_id << " on Floor: " << floor.first << endl; 
