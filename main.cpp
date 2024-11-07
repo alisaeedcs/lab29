@@ -12,6 +12,11 @@ void simulate(map<int, array<list<string>, 3>>&, int);
 //parameters:
 // map of parking garage floors, and num of trials u want it to simulate for (>25)
 
+//outputs the parking garage status
+void output(map<int, array<list<string>, 3>>&);
+//parameters:
+// map of parking garage floors
+
 //define main function
 int main() {
   
@@ -33,7 +38,7 @@ int main() {
 	int floor = 1;
 	array<list<string>, 3> floorOne;
 	floorOne[0].push_back("A1"); //place car is parked in
-	floorOne[1].push_back("1.00"); // at 8 am, sims start at 7 am
+	floorOne[1].push_back("1.00"); // at 8 am, sims start at 7 am if it was at like 8:30 we would do 1.30
 	floorOne[2].push_back("A2, A3, A4"); //these parking spaces are available
 
 	garage[floor] = floorOne; // populate the map
@@ -50,5 +55,21 @@ int main() {
 void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 	//output initial status of garage
 	cout << "Initial state of parking garage:\n";
-	f
+	output(garage);
+
+	for (int i = 0; i < trials; i++) {
+		cout << (i + 1)  * 10 << " Minutes In: \n";
+
+		int carArrivals = rand() % 11; //number of arrivals
+
+		if (garage[0].second[1].size() != 1)
+		
+	}
+}
+
+void output(map<int, array<list<string>, 3>>& garage) {
+	for (const auto &floor: garage) {
+		cout << "Floor " << floor.first << endl;
+		cout << "\tNumber of Cars Parked " << floor.second[0].size() << endl;
+		cout << "\tNumber of Available Spaces " << floor.second[2].size() << endl;
 }
