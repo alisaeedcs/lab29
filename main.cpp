@@ -61,9 +61,19 @@ void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 		cout << (i + 1)  * 10 << " Minutes In: \n";
 
 		int carArrivals = rand() % 11; //number of arrivals
+		int carRetrievals = rand() % 6;
 
-		if (garage[0].second[1].size() != 1)
-		
+		//handle car arrivals
+		for (int j = 0; j < carArrivals; j++) {
+			bool car_parked = false;
+
+			//try parking on each floor starting with the first floor
+			for (auto &floor: garage) {
+				if (!floor.second[2].empty()) {
+					string parking_id = floor.second[2].front();
+				}
+			}
+		}		
 	}
 }
 
