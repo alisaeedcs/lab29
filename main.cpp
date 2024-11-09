@@ -46,33 +46,34 @@ int main() {
 
 	//added  working file input into file
 	while (getline(fin, input)) {
-		cout << input.substr(6);
-		if (input.substr(0,5) == "Floor") {
-			if (input.substr(6) == "One") {
-				floor = 1;
-			}
-			if (input.substr(6) == "Two") {
-				floor = 2;
-			}
-			if (input.substr(6) == "Three") {
-				floor = 3;
+		if (input.length() >= 6) {
+			if (input.substr(0,5) == "Floor") {
+				if (input.substr(6) == "One") {
+					floor = 1;
+				}
+				if (input.substr(6) == "Two") {
+					floor = 2;
+				}
+				if (input.substr(6) == "Three") {
+					floor = 3;
+				}
 			}
 		}
-		if (floor == 1) {
-			if (input.substr(0,2) == "A1" || input.substr(0,2) == "A2" || input.substr(0,2) == "A3" || input.substr(0,2) == "A4" || input.substr(0,2) == "A5") {
+		else if (floor == 1) {
+			if (input == "A1" || input == "A2" || input == "A3" || input == "A4" || input == "A5") {
 				floorOne[0].push_back(input); // our unavailable spaces
 			}
-			if (input.substr(0,2) == "42") {
+			else if (input.substr(0,2) == "42") {
 				floorOne[1].push_back(input); // our arrival times
 			}
 			else {
 				floorOne[2].push_back(input); // our available spaces
 			}
 		}
-		if (floor == 2) {
+		else if (floor == 2) {
 			floorTwo[2].push_back(input); // all spaces are available on floor 2
 		}
-		if (floor == 3) {
+		else if (floor == 3) {
 			floorThree[2].push_back(input); // all spaces are available on floor three
 		}
 	}
@@ -85,7 +86,7 @@ int main() {
 	garage[3] = floorThree;
 
 	//begin time based simulation for valet updates
-	simulate(garage, 3); // 3 trials so 30 minutes passing from 7 am
+	simulate(garage, 5); // 3 trials so 30 minutes passing from 7 am
 	//will use the simulate function definition to operate
 
 	return 0; //end of main function
@@ -107,8 +108,8 @@ void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 		int current_time = start_time + ((i + 1) * 10); // current time from 7 am so the firt one would be 10 + start_time
 		cout << (i + 1)  * 10 << " Minutes In: \n"; //output the amount of time we are in
 
-		int carArrivals = rand() % 2; //number of arrivals supposed to be 10 but for now we do 1 for dummy test
-		int carRetrievals = rand() % 2; //^ same for this it supposed to be 5 for dummy we do 1
+		int carArrivals = rand() % 7; //number of arrivals supposed to be 10 but for now we do 7 for dummy test
+		int carRetrievals = rand() % 5; //^ same for this it supposed to be 5 for dummy we do 1
 
 		//handle car retrievals
 		for (int k = 0; k < carRetrievals; k++) {
@@ -122,7 +123,7 @@ void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 					//would do random but for now do the first car
 					string parking_id = floor.second[0].front(); //set the car we retrieve to the first car in tat list to string
 					floor.second[0].pop_front(); //get rid of it from that list
-					int car_time = stoi(floor.second[1].front()) - start_time; // get the int time of how long its been in minutes
+					int car_time = current_time - stoi(floor.second[1].front()); // get the int time of how long its been in minutes
 					int hours = car_time / 60; //get num of hours theyve been parked
 					int minutes = car_time % 60; //get num of minutes theyve been parked
 					floor.second[1].pop_front(); //time at same index of the car parking id
