@@ -38,10 +38,15 @@ int main() {
     } //if file does not open print error and exit
 
   //here we will read the file that will contain 3 floors with some data of cars that are already parked and all the parking spaces /capacity
+	int floor = 0;
 	string input;
 	int i = 0;
 	while (getline(fin, input)) {
-		if
+		if (input.substr(0,5) == "Floor") {
+			if (input.find(1)) {
+				
+			}
+		}
 	}
 
 
