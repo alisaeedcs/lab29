@@ -1,3 +1,15 @@
+I did plenty of testing in this function specifically with how my
+simulate was able to operate using these new file read inputs instead
+of a dummy example. 
+
+I used unit testing in this simulate function as well as in the file reading 
+to ensure its success. 
+
+I also did unit testing on the output function through the simualte function ensuring all types of change
+would be outputted.
+
+Here's the driver program i used to do this testing:
+
 // comsc-210 | ali saeed \ lab 29 alpha
 //ide used: vs code
 //think that i implemented the wireframe and the pseudocode well without going to into it while still giving a demo
@@ -60,6 +72,8 @@ int main() {
 			}
 		}
 		else if (floor == 1) {
+            cout << "Success 1" << endl; // making sure this operates correctly
+
 			if (input == "A1" || input == "A2" || input == "A3" || input == "A4" || input == "A5") {
 				floorOne[0].push_back(input); // our unavailable spaces
 			}
@@ -71,9 +85,12 @@ int main() {
 			}
 		}
 		else if (floor == 2) {
+            cout << "Success 2" << endl;
 			floorTwo[2].push_back(input); // all spaces are available on floor 2
 		}
 		else if (floor == 3) {
+            cout << "Success 3" << endl;
+
 			floorThree[2].push_back(input); // all spaces are available on floor three
 		}
 	}
@@ -81,12 +98,18 @@ int main() {
 	// ideally we would close the file after reading in from the file
 	fin.close();
 
+
+    //unit test the reading functionality for floor 1 (5 unavailable spaces, 5 arrival times, adn 15 available spaces)
+    cout << floorOne[0].size() << endl;
+    cout << floorOne[1].size() << endl;
+    cout << floorOne[2].size() << endl;
+
 	garage[1] = floorOne;
 	garage[2] = floorTwo;
 	garage[3] = floorThree;
 
 	//begin time based simulation for valet updates
-	simulate(garage, 5); // 3 trials so 30 minutes passing from 7 am
+	simulate(garage, 2); // 2 trials so 20 minutes passing from 7 am
 	//will use the simulate function definition to operate
 
 	return 0; //end of main function
@@ -120,6 +143,7 @@ void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 				//floor.second[2] contains the available spaces
 
 				if (!floor.second[0].empty()) { //if the parked cars list is not empty on that floor
+                    cout << "Simulate working correctly check #1" << endl;
 					//would do random but for now do the first car
 					string parking_id = floor.second[0].front(); //set the car we retrieve to the first car in tat list to string
 					floor.second[0].pop_front(); //get rid of it from that list
@@ -132,6 +156,7 @@ void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 					break; //exit this loop since weve received that first car 
 				}
 				else {
+                    cout << "Simulate working correctly check #2" << endl;
 					cout << "No cars parked" << endl; 
 					//check other floors if this is true
 				}
@@ -147,6 +172,8 @@ void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 			for (auto &floor: garage) {
 				//check if there is available space on the floor
 				if (!floor.second[2].empty()) {
+                    cout << "Simulate working correctly check #3" << endl;
+
 					//if there is
 					//set the parking space we wil take to the first one on the list of the available
 					string parking_id = floor.second[2].front();
