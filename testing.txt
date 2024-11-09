@@ -72,7 +72,7 @@ int main() {
 			}
 		}
 		else if (floor == 1) {
-            cout << "Success 1" << endl;
+            cout << "Success 1" << endl; // making sure this operates correctly
 
 			if (input == "A1" || input == "A2" || input == "A3" || input == "A4" || input == "A5") {
 				floorOne[0].push_back(input); // our unavailable spaces
@@ -143,6 +143,7 @@ void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 				//floor.second[2] contains the available spaces
 
 				if (!floor.second[0].empty()) { //if the parked cars list is not empty on that floor
+                    cout << "Simulate working correctly check #1" << endl;
 					//would do random but for now do the first car
 					string parking_id = floor.second[0].front(); //set the car we retrieve to the first car in tat list to string
 					floor.second[0].pop_front(); //get rid of it from that list
@@ -155,6 +156,7 @@ void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 					break; //exit this loop since weve received that first car 
 				}
 				else {
+                    cout << "Simulate working correctly check #2" << endl;
 					cout << "No cars parked" << endl; 
 					//check other floors if this is true
 				}
@@ -170,6 +172,8 @@ void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 			for (auto &floor: garage) {
 				//check if there is available space on the floor
 				if (!floor.second[2].empty()) {
+                    cout << "Simulate working correctly check #3" << endl;
+
 					//if there is
 					//set the parking space we wil take to the first one on the list of the available
 					string parking_id = floor.second[2].front();
