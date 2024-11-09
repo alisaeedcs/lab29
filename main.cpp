@@ -42,40 +42,47 @@ int main() {
 	string input;
 	array<list<string>, 3> floorOne, floorTwo, floorThree;
 	int i = 0;
+
+
+	//added  working file input into file
 	while (getline(fin, input)) {
+		cout << input.substr(6);
 		if (input.substr(0,5) == "Floor") {
 			if (input.substr(6) == "One") {
-				floor = 0;
-			}
-			if (input.substr(6) == "Two") {
 				floor = 1;
 			}
-			if (input.substr(6) == "Three") {
+			if (input.substr(6) == "Two") {
 				floor = 2;
+			}
+			if (input.substr(6) == "Three") {
+				floor = 3;
 			}
 		}
 		if (floor == 1) {
-			if (input.substr(0,2) == "A1" || input.substr(0,2) == "A2" || input.substr(0,2) == "A3" || input.substr(0,2) == "A1" || input.substr(0,2) == "A1") {
-				floorOne[0].push_back(input);
+			if (input.substr(0,2) == "A1" || input.substr(0,2) == "A2" || input.substr(0,2) == "A3" || input.substr(0,2) == "A4" || input.substr(0,2) == "A5") {
+				floorOne[0].push_back(input); // our unavailable spaces
 			}
-			if (type(input))
+			if (input.substr(0,2) == "42") {
+				floorOne[1].push_back(input); // our arrival times
+			}
+			else {
+				floorOne[2].push_back(input); // our available spaces
+			}
+		}
+		if (floor == 2) {
+			floorTwo[2].push_back(input); // all spaces are available on floor 2
+		}
+		if (floor == 3) {
+			floorThree[2].push_back(input); // all spaces are available on floor three
 		}
 	}
 
-
-	//instead for wireframe just make a dumy one of the first floor
-	int floor = 1;
-	array<list<string>, 3> floorOne;
-	floorOne[0].push_back("A1"); //place car is parked in
-	floorOne[1].push_back(to_string(60*7 + 1)); // car arrived at 7:01 am
-	floorOne[2].push_back("A2"); //these parking spaces are available
-	floorOne[2].push_back("A3"); //other space
-	floorOne[2].push_back("A4"); //other space
-
-	garage[floor] = floorOne; // populate the map
-
 	// ideally we would close the file after reading in from the file
-	//fin.close();
+	fin.close();
+
+	garage[1] = floorOne;
+	garage[2] = floorTwo;
+	garage[3] = floorThree;
 
 	//begin time based simulation for valet updates
 	simulate(garage, 3); // 3 trials so 30 minutes passing from 7 am
