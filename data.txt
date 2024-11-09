@@ -1,0 +1,45 @@
+deciding how to do the garage formatting
+Floor 1 will have 20 spaces
+floor 2 will have 40
+floor 3 will have 40
+
+there will be like 5 cars parked at floor 1 that we will say have arrived at/near the starting time
+could be considered employee cars like maybe security
+
+Floor One
+A1
+A2
+A3
+A4
+A5
+A6
+A7
+A8
+A9
+A10
+A11
+A12
+A13
+A14
+A15
+A16
+A17
+A18
+A19
+A20
+420
+420
+420
+420
+420
+Floor 2
+B1
+B2
+B2
+B4
+B5
+B6
+B7
+B8
+B9
+B10
