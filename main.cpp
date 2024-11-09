@@ -1,4 +1,4 @@
-// comsc-210 | ali saeed \ lab 29
+// comsc-210 | ali saeed \ lab 29 alpha
 //ide used: vs code
 //think that i implemented the wireframe and the pseudocode well without going to into it while still giving a demo
 //include necessary headers for file handling, dat structures, etc.
