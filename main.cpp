@@ -31,14 +31,20 @@ int main() {
     // element 2 in array: list 2 will show available spaces on that floor by identification 
 
     //open an external file and 
-    //ifstream fin("data.txt");
-    //if (!fin) {
-        //cout << "Invalid external file!" << endl;
-                //return 0;
-  //  } if file does not open print error and exit
+    ifstream fin("data.txt");
+    if (!fin) {
+        cout << "Invalid external file!" << endl;
+		return 0;
+    } //if file does not open print error and exit
 
   //here we will read the file that will contain 3 floors with some data of cars that are already parked and all the parking spaces /capacity
-	
+	string input;
+	int i = 0;
+	while (getline(fin, input)) {
+		if
+	}
+
+
 	//instead for wireframe just make a dumy one of the first floor
 	int floor = 1;
 	array<list<string>, 3> floorOne;
