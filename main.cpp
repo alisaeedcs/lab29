@@ -40,12 +40,25 @@ int main() {
   //here we will read the file that will contain 3 floors with some data of cars that are already parked and all the parking spaces /capacity
 	int floor = 0;
 	string input;
+	array<list<string>, 3> floorOne, floorTwo, floorThree;
 	int i = 0;
 	while (getline(fin, input)) {
 		if (input.substr(0,5) == "Floor") {
-			if (input.find(1)) {
-				
+			if (input.substr(6) == "One") {
+				floor = 0;
 			}
+			if (input.substr(6) == "Two") {
+				floor = 1;
+			}
+			if (input.substr(6) == "Three") {
+				floor = 2;
+			}
+		}
+		if (floor == 1) {
+			if (input.substr(0,2) == "A1" || input.substr(0,2) == "A2" || input.substr(0,2) == "A3" || input.substr(0,2) == "A1" || input.substr(0,2) == "A1") {
+				floorOne[0].push_back(input);
+			}
+			if (type(input))
 		}
 	}
 
