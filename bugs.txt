@@ -1,3 +1,11 @@
-ran it for the first time, seems to be good but formatting is horendous, fixing
+ran it for the first time, seems to be good but formatting is horendous, fixing using endl and stuff like that
 
-fixed that but now have to fix the output of when the cars are full
+fixed that but now have to fix the output of when the cars are full, have to move the if statement
+
+bigger problem, it seems the waiting loop is being re initialized to 0 each time, need to fix this urgently, i moved the waiting line outside the loop it should be okay now
+
+Amount of waiting cars is unclear, make sure to add this to output (did this using the list.size() function
+
+Had error of looping the output that i only wanted to appear once, fixed using different condition i believe
+
+new issue with no new lines on formatting output, added new line on two different instances to make output more clear

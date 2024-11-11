@@ -86,7 +86,7 @@ int main() {
 	garage[3] = floorThree;
 
 	//begin time based simulation for valet updates
-	simulate(garage, 25); // 3 trials so 30 minutes passing from 7 am
+	simulate(garage, 15); // 3 trials so 30 minutes passing from 7 am
 	//will use the simulate function definition to operate
 
 	return 0; //end of main function
@@ -101,6 +101,8 @@ void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 	output(garage);
 
 	int start_time = 60 * 7; //get the starting time in minutes  ( 7 am)
+	list<string> waiting;
+
 
 	//starts at 7 am
 	//start the amount of intervals
@@ -111,7 +113,6 @@ void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 		int carArrivals = rand() % 25; //number of arrivals supposed to be 10 but for now we do 7 for dummy test
 		int carRetrievals = rand() % 2; //^ same for this it supposed to be 5 for dummy we do 1
 
-		list<string> waiting;
 
 
 		//handle car retrievals
@@ -168,38 +169,40 @@ void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 
 		}
 		//handle car arrivals
-		for (int j = 0; j < carArrivals; j++) {
-			if (waiting.size() >= 5) {
-				cout << "Line of cars waiting is full. No new car arrivals at this time\n";
-				break;
-			}
-			bool car_parked = false; //bool for car parked
+		if (waiting.size() > 4) {
+			cout << "Line of cars waiting is full. No new car arrivals at this time\n";
+		}
+		else {
+			for (int j = 0; j < carArrivals; j++) {
+				bool car_parked = false; //bool for car parked
 
-			//try parking on each floor starting with the first floor
-			for (auto &floor: garage) {
-				//check if there is available space on the floor
-				if (!floor.second[2].empty()) {
-					//if there is
-					//set the parking space we wil take to the first one on the list of the available
-					string parking_id = floor.second[2].front();
-					//get rid of the id from being the available list
-					floor.second[2].pop_front();
-					//add our parking id to the ones that cars are parked at
-					floor.second[0].push_back(parking_id);
-					//put the current time in the list
-					floor.second[1].push_back(to_string(current_time)); //time in minutes since like 12 am or whateber so 7 am plus the time it got added
-					//will add other conditions if this is full later (if i have to)
-					car_parked = true; // make it so that the car is parked
-					cout << "Car parked in space " << parking_id << " on Floor: " << floor.first << endl; 
-					break;
+				//try parking on each floor starting with the first floor
+				for (auto &floor: garage) {
+					//check if there is available space on the floor
+					if (!floor.second[2].empty()) {
+						//if there is
+						//set the parking space we wil take to the first one on the list of the available
+						string parking_id = floor.second[2].front();
+						//get rid of the id from being the available list
+						floor.second[2].pop_front();
+						//add our parking id to the ones that cars are parked at
+						floor.second[0].push_back(parking_id);
+						//put the current time in the list
+						floor.second[1].push_back(to_string(current_time)); //time in minutes since like 12 am or whateber so 7 am plus the time it got added
+						//will add other conditions if this is full later (if i have to)
+						car_parked = true; // make it so that the car is parked
+						cout << "Car parked in space " << parking_id << " on Floor: " << floor.first << endl; 
+						break;
+					}
+				}
+				if (!car_parked) {
+					//if it was not set to true and there was no space at all the car will wait
+					waiting.push_back("Car waiting");
+					cout << "No space for car, it is waiting outside\n";
+					//code to add it to a queue where when space empties it will be added
 				}
 			}
-			if (!car_parked) {
-				//if it was not set to true and there was no space at all the car will wait
-				waiting.push_back("Car waiting");
-				cout << "No space for car, it is waiting outside";
-				//code to add it to a queue where when space empties it will be added
-			}
+			cout << "\n";
 		}
 		output(garage); //output once more
 	}
