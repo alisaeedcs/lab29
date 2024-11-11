@@ -1,0 +1,29 @@
+ran it for the first time, seems to be good but formatting is horendous, fixing using endl and stuff like that
+
+fixed that but now have to fix the output of when the cars are full, have to move the if statement
+
+bigger problem, it seems the waiting loop is being re initialized to 0 each time, need to fix this urgently, i moved the waiting line outside the loop it should be okay now
+
+Amount of waiting cars is unclear, make sure to add this to output (did this using the list.size() function
+
+Had error of looping the output that i only wanted to appear once, fixed using different condition i believe
+
+new issue with no new lines on formatting output, added new line on two different instances to make output more clear
+
+more confusing output that can put off time intervals and allow for misinformation of data, adding more endl
+
+big problem, when the list is less than 5 but there are lots of arrivals it still adds them to the waiting list\
+
+extraneous closing brace error, got rid of a bracket i believe and it has disappeared as a result
+
+(NOT A BUG) Fixed all those bugs, now I can probably go back to normal random number generators and go back to 25 trials with like 10 cars coming and 5 leaving
+
+new bug of trying to find the sweet spot of arrivals and retrievals, if we do not find this number it will not work effectively as there will just be repeated trials of a full parking lots
+    - tring 15 arrival 7 retrieval x
+    - trying 15 arrival 9 retrieval checkmark idk how to do tje symbol
+
+everything works good!
+added my waiting line which was basically the only lsat feature
+going over everythinf and i should be done
+
+
