@@ -2,6 +2,13 @@
 //ide used: vs code
 //think that i implemented the wireframe and the pseudocode well without going to into it while still giving a demo
 //include necessary headers for file handling, dat structures, etc.
+
+//lab 30 updates header: added my waiting line queue, little bit dififcult to implement
+//change amount of trils to 25 making it 250 minutes lapse of time
+//happy with everything i did and everything is pretty modular so easy to change numbers
+//or randomness if i wanted to
+//thanks for reviewing my project (Valet Simulator)!
+
 #include <iostream>
 #include <map>
 #include <list>
