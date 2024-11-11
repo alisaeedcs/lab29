@@ -111,6 +111,9 @@ void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 		int carArrivals = rand() % 7; //number of arrivals supposed to be 10 but for now we do 7 for dummy test
 		int carRetrievals = rand() % 5; //^ same for this it supposed to be 5 for dummy we do 1
 
+		list<string> waiting;
+
+
 		//handle car retrievals
 		for (int k = 0; k < carRetrievals; k++) {
 			for (auto &floor: garage) { //for each floor in teh garage
@@ -139,6 +142,30 @@ void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 			}
 		}
 
+
+		//check if any cars are in the queue (prioritize parking them if the)
+		if (!waiting.empty()) {
+			for (int i = 0; i < waiting.size(); i++) {
+				bool spot_found = false;
+				for (auto &floor: garage) {
+					//check if there is available space on the floor
+					if (!floor.second[2].empty()) {
+						//if there is
+						//set the parking space we wil take to the first one on the list of the available
+						string parking_id = floor.second[2].front();
+						//get rid of the id from being the available list
+						floor.second[2].pop_front();
+						//add our parking id to the ones that cars are parked at
+						floor.second[0].push_back(parking_id);
+						//put the current time in the list
+						floor.second[1].push_back(to_string(current_time)); //time in minutes since like 12 am or whateber so 7 am plus the time it got added
+						spot_found = true; // make it so that the car is parked
+						cout << "Car parked in space " << parking_id << " on Floor: " << floor.first << endl; 
+						break;
+					}
+			}
+			}
+		}
 		//handle car arrivals
 		for (int j = 0; j < carArrivals; j++) {
 			bool car_parked = false; //bool for car parked
@@ -161,10 +188,10 @@ void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 					cout << "Car parked in space " << parking_id << " on Floor: " << floor.first << endl; 
 					break;
 				}
-				//will add other levels here to check
 			}
 			if (!car_parked) {
 				//if it was not set to true and there was no space at all the car will wait
+				waiting.push_back("Car waiting");
 				cout << "No space for car, it is waiting outside";
 				//code to add it to a queue where when space empties it will be added
 			}
