@@ -86,7 +86,7 @@ int main() {
 	garage[3] = floorThree;
 
 	//begin time based simulation for valet updates
-	simulate(garage, 25); // 3 trials so 30 minutes passing from 7 am
+	simulate(garage, 15); // 3 trials so 30 minutes passing from 7 am
 	//will use the simulate function definition to operate
 
 	return 0; //end of main function
@@ -110,8 +110,8 @@ void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 		int current_time = start_time + ((i + 1) * 10); // current time from 7 am so the firt one would be 10 + start_time
 		cout << (i + 1)  * 10 << " Minutes In: \n"; //output the amount of time we are in
 
-		int carArrivals = rand() % 15; //number of arrivals supposed to be 10 but for now we do 7 for dummy test
-		int carRetrievals = rand() % 5; //^ same for this it supposed to be 5 for dummy we do 1
+		int carArrivals = rand() % 25; //number of arrivals supposed to be 10 but for now we do 7 for dummy test
+		int carRetrievals = rand() % 2; //^ same for this it supposed to be 5 for dummy we do 1
 
 
 
