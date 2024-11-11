@@ -145,25 +145,24 @@ void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 
 		//check if any cars are in the queue (prioritize parking them if the)
 		if (!waiting.empty()) {
-			for (int i = 0; i < waiting.size(); i++) {
+			for (auto it = waiting.begin(); it != waiting.end();) {
 				bool spot_found = false;
+
 				for (auto &floor: garage) {
-					//check if there is available space on the floor
 					if (!floor.second[2].empty()) {
-						//if there is
-						//set the parking space we wil take to the first one on the list of the available
 						string parking_id = floor.second[2].front();
-						//get rid of the id from being the available list
 						floor.second[2].pop_front();
-						//add our parking id to the ones that cars are parked at
 						floor.second[0].push_back(parking_id);
-						//put the current time in the list
-						floor.second[1].push_back(to_string(current_time)); //time in minutes since like 12 am or whateber so 7 am plus the time it got added
-						spot_found = true; // make it so that the car is parked
-						cout << "Car parked in space " << parking_id << " on Floor: " << floor.first << endl; 
+						floor.second[1].push_back(to_string(current_time)); 
+						it = waiting.erase(it);
+						spot_found = true; 
+						cout << "Car in waiting line parked in space " << parking_id << " on Floor: " << floor.first << endl; 
 						break;
 					}
-			}
+				}
+				if (!spot_found) {
+					cout << "No space found for waiting cars, wait for next interval\n";
+				}
 			}
 		}
 		//handle car arrivals
