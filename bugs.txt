@@ -1,0 +1,3 @@
+ran it for the first time, seems to be good but formatting is horendous, fixing
+
+fixed that but now have to fix the output of when the cars are full

@@ -86,7 +86,7 @@ int main() {
 	garage[3] = floorThree;
 
 	//begin time based simulation for valet updates
-	simulate(garage, 5); // 3 trials so 30 minutes passing from 7 am
+	simulate(garage, 25); // 3 trials so 30 minutes passing from 7 am
 	//will use the simulate function definition to operate
 
 	return 0; //end of main function
@@ -108,8 +108,8 @@ void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 		int current_time = start_time + ((i + 1) * 10); // current time from 7 am so the firt one would be 10 + start_time
 		cout << (i + 1)  * 10 << " Minutes In: \n"; //output the amount of time we are in
 
-		int carArrivals = rand() % 7; //number of arrivals supposed to be 10 but for now we do 7 for dummy test
-		int carRetrievals = rand() % 5; //^ same for this it supposed to be 5 for dummy we do 1
+		int carArrivals = rand() % 25; //number of arrivals supposed to be 10 but for now we do 7 for dummy test
+		int carRetrievals = rand() % 2; //^ same for this it supposed to be 5 for dummy we do 1
 
 		list<string> waiting;
 
@@ -154,7 +154,7 @@ void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 						floor.second[2].pop_front();
 						floor.second[0].push_back(parking_id);
 						floor.second[1].push_back(to_string(current_time)); 
-						it = waiting.erase(it);
+						it = waiting.erase(it); //moves iterator to next increment
 						spot_found = true; 
 						cout << "Car in waiting line parked in space " << parking_id << " on Floor: " << floor.first << endl; 
 						break;
@@ -162,11 +162,17 @@ void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 				}
 				if (!spot_found) {
 					cout << "No space found for waiting cars, wait for next interval\n";
+					break;
 				}
 			}
+
 		}
 		//handle car arrivals
 		for (int j = 0; j < carArrivals; j++) {
+			if (waiting.size() >= 5) {
+				cout << "Line of cars waiting is full. No new car arrivals at this time\n";
+				break;
+			}
 			bool car_parked = false; //bool for car parked
 
 			//try parking on each floor starting with the first floor
