@@ -18,3 +18,12 @@ extraneous closing brace error, got rid of a bracket i believe and it has disapp
 
 (NOT A BUG) Fixed all those bugs, now I can probably go back to normal random number generators and go back to 25 trials with like 10 cars coming and 5 leaving
 
+new bug of trying to find the sweet spot of arrivals and retrievals, if we do not find this number it will not work effectively as there will just be repeated trials of a full parking lots
+    - tring 15 arrival 7 retrieval x
+    - trying 15 arrival 9 retrieval checkmark idk how to do tje symbol
+
+everything works good!
+added my waiting line which was basically the only lsat feature
+going over everythinf and i should be done
+
+

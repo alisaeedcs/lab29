@@ -1,4 +1,4 @@
-// comsc-210 | ali saeed \ lab 29 alpha
+// comsc-210 | ali saeed \ lab 30 beta
 //ide used: vs code
 //think that i implemented the wireframe and the pseudocode well without going to into it while still giving a demo
 //include necessary headers for file handling, dat structures, etc.
@@ -111,7 +111,7 @@ void simulate(map<int, array<list<string>, 3>>& garage, int trials) {
 		cout << (i + 1)  * 10 << " Minutes In: \n"; //output the amount of time we are in
 
 		int carArrivals = rand() % 15; //number of arrivals supposed to be 10 but for now we do 7 for dummy test
-		int carRetrievals = rand() % 5; //^ same for this it supposed to be 5 for dummy we do 1
+		int carRetrievals = rand() % 9; //^ same for this it supposed to be 5 for dummy we do 1
 
 
 
